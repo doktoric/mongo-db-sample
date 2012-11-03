@@ -19,7 +19,6 @@ public class TeamRepository {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	
 	public void dropTeamCollection() {
 		// TODO Auto-generated method stub
 		if (mongoTemplate.collectionExists(Team.class)) {
@@ -48,11 +47,12 @@ public class TeamRepository {
 		mongoTemplate.remove(team);
 	}
 
-	 public void insert(Team team) {
-	        mongoTemplate.insert(team);
-	    }
-	
-	public void insertWithWithGivenEmployees(Team team, Manager manager, Employee... employees) {
+	public void insert(Team team) {
+		mongoTemplate.insert(team);
+	}
+
+	public void insertWithWithGivenEmployees(Team team, Manager manager,
+			Employee... employees) {
 		for (Employee emp : employees) {
 			team.addEmployee(emp);
 		}
@@ -62,11 +62,9 @@ public class TeamRepository {
 	}
 
 	public List<Team> findTeamWhereManagerIs(Manager manager) {
-	
-		 Query query = new Query(Criteria.where("team.manager.$objectId").is(manager.getObjectId()));
-		 return mongoTemplate.find(query, Team.class);
+		Query query = new Query(Criteria.where("manager.$id").is(
+				manager.getObjectId()));
+		return mongoTemplate.find(query, Team.class);
 	}
-	
-	
 
 }
