@@ -6,35 +6,29 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="employee")
 public class Tester extends Employee{
 
-	private EmpType emptype=EmpType.TESTER;
-
+	
 	public Tester(String name, int age) {
-		
+		emptype=EmpType.TESTER;
 		this.name = name;
 		this.age = age;
 		
 	}
 	
 	public Tester(String name) {
+		emptype=EmpType.TESTER;
 		this.name = name;
 		this.age = 27;
 		
 	}
 	
 	public Tester() {
+		emptype=EmpType.TESTER;
 		this.name = "Test Elod";
 		this.age = 27;
 		
 	}
 	
 	
-	public EmpType getEmptype() {
-		return emptype;
-	}
-
-	public void setEmptype(EmpType emptype) {
-		this.emptype = emptype;
-	}
 	
 	
 	

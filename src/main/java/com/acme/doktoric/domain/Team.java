@@ -72,11 +72,11 @@ public class Team {
 	public String toString() {
 		StringBuilder sb= new StringBuilder();
 		
-		sb.append(objectId+"\n");
-		sb.append(name+"\n");
-		sb.append(manager+"\n");
+		sb.append("name:     "+name+"\n");
+		sb.append("manager:  "+manager+"\n");
+		sb.append("team:  "+"\n");
 		for (Employee emp : employees) {
-			sb.append(emp);
+			sb.append("\t  "+emp+"\n");
 		}
 		
 		

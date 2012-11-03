@@ -1,9 +1,12 @@
 package com.acme.doktoric.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.acme.doktoric.domain.Team;
@@ -57,5 +60,13 @@ public class TeamRepository {
 
 		mongoTemplate.insert(team);
 	}
+
+	public List<Team> findTeamWhereManagerIs(Manager manager) {
+	
+		 Query query = new Query(Criteria.where("team.manager.$objectId").is(manager.getObjectId()));
+		 return mongoTemplate.find(query, Team.class);
+	}
+	
+	
 
 }

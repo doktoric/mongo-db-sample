@@ -17,95 +17,88 @@ import com.acme.doktoric.service.CustomService;
  * 
  */
 public class App {
-	public static void main(String[] args) {
 
+	private Employee pBela = new Programmer("bela", 20);
+	private Employee pOliver = new Programmer("oliver", 21);
+	private Employee pGeza = new Programmer("geza", 22);
+	private Employee pPeter = new Programmer("peter", 23);
+	private Employee pGunter = new Programmer("gunter", 24);
+	private Employee pRicsi = new Programmer("ricsi", 25);
+	private Employee pLajos = new Programmer("lajos", 26);
+	private Employee pKrisztian = new Programmer("krisztian", 27);
+	private Employee pJanos = new Programmer("janos", 28);
+	private Employee pMarci = new Programmer("marci", 29);
+	private Employee pGergo = new Programmer("gergo", 30);
+	private Employee tZita = new Programmer("zita", 20);
+	private Employee tGizi = new Programmer("gizi", 21);
+	private Employee tLili = new Programmer("lili", 22);
+	private Employee tMarta = new Programmer("marta", 23);
+	private Employee tJutka = new Programmer("jutka", 24);
+	private Employee tLujza = new Programmer("lujza", 25);
+	private Employee tNiki = new Programmer("niki", 26);
+	private Employee tMonika = new Programmer("monika", 27);
+	private Employee tMarietta = new Programmer("marietta", 28);
+	private Employee tLaura = new Programmer("laura", 29);
+	private Employee tLolka = new Programmer("lolka", 30);
+	private Manager mRobi = new Manager("robi");
+	private Manager mRita = new Manager("rita");
+	private Team ubs1 = new Team("UBS1");
+	private Team ubs2 = new Team("UBS2");
+	private Project project = new Project("UBS");
+
+	public App() {
+
+	}
+
+	public void run() {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"META-INF/spring.xml");
 		CustomService customService = context.getBean(CustomService.class);
 
-		customService.dropEmployeeCollection();
-		customService.dropProjectCollection();
-		customService.dropTeamCollection();
+		customService.dropAllCollections();
+		customService.createAllCollections();
 
-		customService.createEmployeeCollection();
-		customService.createProjectCollection();
-		customService.createTeamCollection();
+		customService.persistEmployees(pBela, pGergo, pGeza, pGunter, pJanos,
+				pKrisztian, pLajos, pMarci, pOliver, pPeter, pRicsi, tGizi,
+				tJutka, tLaura, tLili, tLolka, tLujza, tMarietta, tMarta,
+				tMonika, tNiki, tZita, mRobi, mRita);
 
-		Employee pBela = new Programmer("bela",20);
-		Employee pOliver = new Programmer("oliver",21);
-		Employee pGeza = new Programmer("geza",22);
-		Employee pPeter = new Programmer("peter",23);
-		Employee pGunter = new Programmer("gunter",24);
-		Employee pRicsi = new Programmer("ricsi",25);
-		Employee pLajos = new Programmer("lajos",26);
-		Employee pKrisztian = new Programmer("krisztian",27);
-		Employee pJanos = new Programmer("janos",28);
-		Employee pMarci = new Programmer("marci",29);
-		Employee pGergo = new Programmer("gergo",30);
+		customService.insertWithWithGivenEmployees(ubs1, mRobi, pBela, pGergo,
+				pGeza, pGunter, pJanos, pKrisztian, tGizi, tJutka, tLaura,
+				tLili, tLolka, tLujza);
+		customService.insertWithWithGivenEmployees(ubs2, mRita, pLajos, pMarci,
+				pOliver, pPeter, pRicsi, tMarietta, tMarta, tMonika, tNiki,
+				tZita);
+
+		customService.insertProjectWithTeam(project, ubs1, ubs2);
+
+		System.out.println("\nALL TEAM:");
+		printTeamsCollection(customService.getAllTeams());
+		System.out.println("\nAGE < 27:");
+		printEmployeeCollection(customService.findWhoseAgeIsLessThan(27));
+		System.out.println("\nMANAGERS:");
+		printEmployeeCollection(customService.findAllManagers());
+		System.out.println("\nFIND ROBI MANAGERS:");
+		printTeamsCollection(customService.findTeamWhereManagerIs(mRobi));
 		
-		customService.persistEmployee(pBela);
-		customService.persistEmployee(pGergo);
-		customService.persistEmployee(pGeza);
-		customService.persistEmployee(pGunter);
-		customService.persistEmployee(pJanos);
-		customService.persistEmployee(pKrisztian);
-		customService.persistEmployee(pLajos);
-		customService.persistEmployee(pMarci);
-		customService.persistEmployee(pOliver);
-		customService.persistEmployee(pPeter);
-		customService.persistEmployee(pRicsi);
-		
-		Employee tZita = new Programmer("zita",20);
-		Employee tGizi = new Programmer("gizi",21);
-		Employee tLili = new Programmer("lili",22);
-		Employee tMarta = new Programmer("marta",23);
-		Employee tJutka = new Programmer("jutka",24);
-		Employee tLujza = new Programmer("lujza",25);
-		Employee tNiki = new Programmer("niki",26);
-		Employee tMonika = new Programmer("monika",27);
-		Employee tMarietta = new Programmer("marietta",28);
-		Employee tLaura = new Programmer("laura",29);
-		Employee tLolka = new Programmer("lolka",30);
-		
-		customService.persistEmployee(tGizi);
-		customService.persistEmployee(tJutka);
-		customService.persistEmployee(tLaura);
-		customService.persistEmployee(tLili);
-		customService.persistEmployee(tLolka);
-		customService.persistEmployee(tLujza);
-		customService.persistEmployee(tMarietta);
-		customService.persistEmployee(tMarta);
-		customService.persistEmployee(tMonika);
-		customService.persistEmployee(tNiki);
-		customService.persistEmployee(tZita);
-		
-		Manager mRobi=new Manager("robi");
-		Manager mRita=new Manager("rita");
-		
-		customService.persistEmployee(mRobi);
-		customService.persistEmployee(mRita);
-		
-		
-		Team ubs1=new  Team("UBS1");
-		Team ubs2=new  Team("UBS2");
-		
-		customService.insertWithWithGivenEmployees(ubs1, mRobi, pBela,pGergo,pGeza,pGunter,pJanos,pKrisztian,tGizi,tJutka,tLaura,tLili,tLolka,tLujza);
-		customService.insertWithWithGivenEmployees(ubs2, mRita, pLajos,pMarci,pOliver,pPeter,pRicsi,tMarietta,tMarta,tMonika,tNiki,tZita);
-		
-		
-		
-		
-		Project project=new Project("UBS");
-		customService.insertProjectWithTeam(project, ubs1,ubs2);
-		
-		printCollection(customService.getAllTeams());
-		
+	}
+
+	public static void main(String[] args) {
+		App app = new App();
+		app.run();
+	}
+
+	protected void printEmployeeCollection(Collection<? extends Employee> employees) {
+		for (Employee employee : employees) {
+			System.out.println(employee);
+		}
 		
 	}
 	
-	
-	 private static void printCollection(Collection<Team> teams) {
-	        for (Team team : teams)
-	            System.out.println(team);
-	    }
+	protected void printTeamsCollection(Collection<Team> teams) {
+		for (Team team : teams) {
+		
+			System.out.println(team);
+		}
+	}
 }

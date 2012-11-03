@@ -8,30 +8,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Manager extends Employee{
 
 	
-	private EmpType emptype=EmpType.MANAGER;
-
-	public EmpType getEmptype() {
-		return emptype;
-	}
-
-	public void setEmptype(EmpType emptype) {
-		this.emptype = emptype;
-	}
+	
 	
 	public Manager(String name, int age) {
-		
+		emptype=EmpType.MANAGER;
 		this.name = name;
 		this.age = age;
 		
 	}
 	
 	public Manager(String name) {
+		emptype=EmpType.MANAGER;
 		this.name = name;
 		this.age = 40;
 		
 	}
 	
 	public Manager() {
+		emptype=EmpType.MANAGER;
 		this.name = "Deb Ilona";
 		this.age = 40;
 		

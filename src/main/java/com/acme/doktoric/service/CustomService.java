@@ -39,6 +39,14 @@ public class CustomService {
 	public void persistEmployee(Employee employee) {
 		employeeRepository.persitEmployee(employee);
 	}
+	
+	public void persistEmployees(Employee... employees) {
+		for (Employee employee : employees) {
+			employeeRepository.persitEmployee(employee);
+		}
+		
+		
+	}
 
 	public void insertEmployeeWithRandomAge(Employee employee) {
 		employeeRepository.insertPersonWithRandomAge(employee);
@@ -76,32 +84,6 @@ public class CustomService {
 		return employeeRepository.findAllManagers();
 	}
 
-	// PROJECT
-	public void dropProjectCollection() {
-		projectRepository.dropProjectCollection();
-	}
-
-	public void createProjectCollection() {
-		projectRepository.createProjectCollection();
-	}
-
-	public void persistProject(Project project) {
-		projectRepository.persist(project);
-	}
-
-	public Collection<Project> getAllPerson() {
-		return projectRepository.getAll();
-	}
-
-	public void delete(Project project) {
-
-		projectRepository.delete(project);
-	}
-
-	public void insertProjectWithTeam(Project project, Team... teams) {
-		projectRepository.insertProjectWithTeam(project, teams);
-	}
-
 	// TEAM
 
 	public void dropTeamCollection() {
@@ -131,6 +113,51 @@ public class CustomService {
 	public void insertWithWithGivenEmployees(Team team, Manager manager,
 			Employee... employees) {
 		teamRepository.insertWithWithGivenEmployees(team, manager, employees);
+	}
+	
+	public List<Team> findTeamWhereManagerIs(Manager manager) {
+		return teamRepository.findTeamWhereManagerIs(manager);
+	}
+
+	// PROJECT
+	public void dropProjectCollection() {
+		projectRepository.dropProjectCollection();
+	}
+
+	public void createProjectCollection() {
+		projectRepository.createProjectCollection();
+	}
+
+	public void persistProject(Project project) {
+		projectRepository.persist(project);
+	}
+
+	public Collection<Project> getAllPerson() {
+		return projectRepository.getAll();
+	}
+
+	public void delete(Project project) {
+
+		projectRepository.delete(project);
+	}
+
+	public void insertProjectWithTeam(Project project, Team... teams) {
+		projectRepository.insertProjectWithTeam(project, teams);
+	}
+	
+	//OTHERS
+	public void dropAllCollections() {
+		dropEmployeeCollection();
+		dropProjectCollection();
+		dropTeamCollection();
+	
+	}
+	
+	public void createAllCollections() {
+		createEmployeeCollection();
+		createProjectCollection();
+		createTeamCollection();
+	
 	}
 
 }

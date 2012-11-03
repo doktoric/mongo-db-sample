@@ -11,11 +11,17 @@ public abstract class Employee {
 	protected ObjectId objectId=ObjectId.get();
 	protected String name;
 	protected int age;
-	
+	protected EmpType emptype=EmpType.MANAGER;
 
 	
 	
-	
+	public EmpType getEmptype() {
+		return emptype;
+	}
+
+	public void setEmptype(EmpType emptype) {
+		this.emptype = emptype;
+	}
 	
 	public ObjectId getObjectId() {
 		return objectId;
@@ -35,11 +41,14 @@ public abstract class Employee {
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	@Override
 	public String toString() {
-		return "Employee [objectId=" + objectId + ", name=" + name + ", age="
-				+ age + "]\n";
+		return "name=" + name + ", age="
+				+ age + ", emptype=" + emptype + "";
 	}
+
+
 	
 	
 	
