@@ -1,163 +1,78 @@
 package com.acme.doktoric.service;
 
-import java.awt.print.Book;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.acme.doktoric.dao.EmployeeRepository;
-import com.acme.doktoric.dao.ProjectRepository;
-import com.acme.doktoric.dao.TeamRepository;
+import com.acme.doktoric.Loggable;
 import com.acme.doktoric.domain.Project;
 import com.acme.doktoric.domain.Team;
 import com.acme.doktoric.domain.emp.Employee;
 import com.acme.doktoric.domain.emp.Manager;
 
 @Service
-public class CustomService {
-
-	@Autowired
-	private TeamRepository teamRepository;
-	@Autowired
-	private ProjectRepository projectRepository;
-	@Autowired
-	private EmployeeRepository employeeRepository;
+public interface CustomService {
 
 	// EMPLOYEE
-	public void insertEmployee(Employee employee) {
-		employeeRepository.insert(employee);
-	}
-
-	public void persistEmployee(Employee employee) {
-		employeeRepository.persitEmployee(employee);
-	}
 	
-	public void persistEmployees(Employee... employees) {
-		for (Employee employee : employees) {
-			employeeRepository.persitEmployee(employee);
-		}
-		
-		
-	}
+	public void insertEmployee(Employee employee);
 
-	public void insertEmployeeWithRandomAge(Employee employee) {
-		employeeRepository.insertPersonWithRandomAge(employee);
-	}
+	public void persistEmployee(Employee employee);
 
-	public void dropEmployeeCollection() {
-		employeeRepository.dropEmployeeCollection();
-	}
+	public void persistEmployees(Employee... employees);
 
-	public void createEmployeeCollection() {
-		employeeRepository.createEmployeeCollection();
-	}
+	public void insertEmployeeWithRandomAge(Employee employee);
 
-	public Collection<Employee> getAllEmployees() {
-		return employeeRepository.getAll();
-	}
+	public void dropEmployeeCollection();
 
-	public void insertPersonWithRandomAge(Employee person) {
-		employeeRepository.insertPersonWithRandomAge(person);
-	}
+	public void createEmployeeCollection();
 
-	public List<Employee> findWhoseAgeIsGreaterThan(int age) {
-		return employeeRepository.findWhoseAgeIsGreaterThan(age);
-	}
+	public Collection<Employee> getAllEmployees();
 
-	public List<Employee> findWhoseAgeIsLessThan(int age) {
-		return employeeRepository.findWhoseAgeIsGreaterThan(age);
-	}
+	public void insertPersonWithRandomAge(Employee person);
 
-	public void deleteEmployeesWithAge(int age) {
-		employeeRepository.deleteEmployeesWithAge(age);
-	}
+	public List<Employee> findWhoseAgeIsGreaterThan(int age);
 
-	public Collection<Manager> findAllManagers() {
-		return employeeRepository.findAllManagers();
-	}
+	public List<Employee> findWhoseAgeIsLessThan(int age);
+
+	public void deleteEmployeesWithAge(int age);
+
+	public Collection<Manager> findAllManagers();
 
 	// TEAM
+	public void dropTeamCollection();
 
-	public void dropTeamCollection() {
-		teamRepository.dropTeamCollection();
-	}
+	public void createTeamCollection();
 
-	public void createTeamCollection() {
-		teamRepository.createTeamCollection();
-	}
+	public void persist(Team team);
 
-	public void persist(Team team) {
-		teamRepository.persist(team);
-	}
+	public Collection<Team> getAllTeams();
 
-	public Collection<Team> getAllTeams() {
-		return teamRepository.getAll();
-	}
+	public void delete(Team team);
 
-	public void delete(Team team) {
-		teamRepository.delete(team);
-	}
-
-	public void insert(Team team) {
-		teamRepository.insert(team);
-	}
+	public void insert(Team team);
 
 	public void insertWithWithGivenEmployees(Team team, Manager manager,
-			Employee... employees) {
-		teamRepository.insertWithWithGivenEmployees(team, manager, employees);
-	}
-	
-	public List<Team> findTeamWhereManagerIs(Manager manager) {
-		return teamRepository.findTeamWhereManagerIs(manager);
-	}
+			Employee... employees);
+
+	public List<Team> findTeamWhereManagerIs(Manager manager);
 
 	// PROJECT
-	public void dropProjectCollection() {
-		projectRepository.dropProjectCollection();
-	}
+	public void dropProjectCollection();
 
-	public void createProjectCollection() {
-		projectRepository.createProjectCollection();
-	}
+	public void createProjectCollection();
 
-	public void persistProject(Project project) {
-		projectRepository.persist(project);
-	}
+	public void persistProject(Project project);
 
-	public Collection<Project> getAllPerson() {
-		return projectRepository.getAll();
-	}
+	public Collection<Project> getAllPerson();
 
-	public void delete(Project project) {
+	public void delete(Project project);
 
-		projectRepository.delete(project);
-	}
+	public void insertProjectWithTeam(Project project, Team... teams);
 
-	public void insertProjectWithTeam(Project project, Team... teams) {
-		projectRepository.insertProjectWithTeam(project, teams);
-	}
-	
-	//OTHERS
-	public void dropAllCollections() {
-		dropEmployeeCollection();
-		dropProjectCollection();
-		dropTeamCollection();
-	
-	}
-	
-	public void createAllCollections() {
-		createEmployeeCollection();
-		createProjectCollection();
-		createTeamCollection();
-	
-	}
+	// OTHERS
+	public void dropAllCollections();
 
+	public void createAllCollections();
 }
